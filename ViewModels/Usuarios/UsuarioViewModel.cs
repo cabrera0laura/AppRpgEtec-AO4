@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using AppRpgEtec.Models;
 using AppRpgEtec.Services.Usuarios;
+using AppRpgEtec.Views.Usuarios;
 
 namespace AppRpgEtec.ViewModels.Usuarios
 {
@@ -20,9 +21,13 @@ namespace AppRpgEtec.ViewModels.Usuarios
         public void InicializarCommands()
         {
             AutenticarCommand = new Command(async () => await AutenticarUsuario());
+            RegistrarCommand = new Command(async () => await RegistrarUsuario());
+            DirecionarCadastroCommand = new Command(async () => await DirecionarParaCadastro());
         }
         private UsuarioService uServices;
         public ICommand AutenticarCommand { get; set; }
+        public ICommand RegistrarCommand { get; set; }
+        public ICommand DirecionarCadastroCommand { get; set; }
        
 
         //region compacta o codigo visualmente.
@@ -32,8 +37,8 @@ namespace AppRpgEtec.ViewModels.Usuarios
 
         //gerar GET/SET Ctrl + r + e
         public string Login 
-        { 
-            get => login;
+        {
+            get {return  login; }
             set 
             { 
                 login = value;
@@ -41,8 +46,8 @@ namespace AppRpgEtec.ViewModels.Usuarios
             }
         }
         public string Senha 
-        { 
-            get => senha;
+        {
+            get { return senha; }
             set
             { 
                 senha = value; 
@@ -60,6 +65,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
             {
                 // metodo de chamada para API
                 Usuario u = new Usuario();
+                u.Username = login;
                 u.PasswordString = senha;
 
                 //Chamada a API
@@ -84,7 +90,6 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     await Application.Current.MainPage
                         .DisplayAlert("Informação", "Dados incorretos! 🤨 ", "Ok");
                 }
-
             }
             catch (Exception ex)
             {
@@ -92,6 +97,47 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     .DisplayAlert("Informações", ex.Message + ex.InnerException, "Ok");
             }
         }
+
+        public async Task RegistrarUsuario() //Metodo para registrar um usuario
+        {
+            try
+            {
+                //Proxima codificacao
+                Usuario u = new Usuario();
+                u.Username = Login;
+                u.PasswordString = senha;
+
+                Usuario uRegistrado = await uServices.PostRegistrarUsuarioAsync(u);
+
+                if (uRegistrado.Id != 0)
+                {
+                    string mensagem = $"Usuário Id {uRegistrado.Id} registrado com sucesso.";
+                    await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "Ok");
+
+                    await Application.Current.MainPage.Navigation.PopAsync(); // Remove  a pagina da pilha de visualização.
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage
+                    .DisplayAlert("Informação", ex.Message + "Detalhes:" + ex.InnerException, "Ok");
+            }
+        }
+
+        public async Task DirecionarParaCadastro() //Método para exibição da view de Cadastro
+        {
+            try
+            {
+                await Application.Current.MainPage
+                    .Navigation.PushAsync(new CadastroView());
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage
+                    .DisplayAlert("Informação", ex.Message, "Detalhes" + ex.InnerException, "Ok");
+            }
+        }
+
         #endregion
     }
 }

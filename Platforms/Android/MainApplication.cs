@@ -3,7 +3,7 @@ using Android.Runtime;
 
 namespace AppRpgEtec
 {
-    [Application(UsesCleartextTraffic=true)]
+    [Application(UsesCleartextTraffic=true)] //  habilite o emulador trafegar dados JSON conforme a instrução sinalizada abaixo
     public class MainApplication : MauiApplication
     {
         public MainApplication(IntPtr handle, JniHandleOwnership ownership)
