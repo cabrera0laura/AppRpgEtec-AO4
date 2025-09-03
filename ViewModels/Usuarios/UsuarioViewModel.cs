@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using AppRpgEtec.Models;
 using AppRpgEtec.Services.Usuarios;
+using AppRpgEtec.Views.Personagens;
 using AppRpgEtec.Views.Usuarios;
 
 namespace AppRpgEtec.ViewModels.Usuarios
@@ -15,7 +16,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
         public UsuarioViewModel()
         {
             uServices = new UsuarioService();
-            //chama os metodo de baxo(Horganização).
+            //chama os metodo de baixo(Horganização).
             InicializarCommands();
         }
         public void InicializarCommands()
@@ -83,7 +84,8 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     Preferences.Set("UsuarioToken", uAutenticado.Token);
 
                     await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "Ok");
-                    Application.Current.MainPage = new MainPage();
+                    Application.Current.MainPage = new ListagemView();
+                    // Alteração para que view inicial possa ser a de listagem.
                 }
                 else
                 {
