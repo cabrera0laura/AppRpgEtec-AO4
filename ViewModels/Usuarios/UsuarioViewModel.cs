@@ -84,7 +84,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     Preferences.Set("UsuarioToken", uAutenticado.Token);
 
                     await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "Ok");
-                    Application.Current.MainPage = new ListagemView();
+                    Application.Current.MainPage = new AppShell();
                     // Alteração para que view inicial possa ser a de listagem.
                 }
                 else

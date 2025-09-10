@@ -14,8 +14,9 @@ namespace AppRpgEtec.ViewModels.Personagens
     {
         private PersonagemService pService;
         public ObservableCollection<Personagem> Personagens { get; set; }
-        
-       public ICommand NovoPersonagemCommand { get; }
+        public ICommand NovoPersonagemCommand { get; }
+        public ICommand RemoverPersonagemCommand { get; set; }
+        //public Personagem Personagem { get => personagem; set => personagem = value; }
 
         // construtor 
         public ListagemPersonagemViewModel()
@@ -26,8 +27,11 @@ namespace AppRpgEtec.ViewModels.Personagens
 
             _ = ObterPersonagens();
 
-            NovoPersongemCommand = new Command(async () => { await ExibirCadastroPersonagem(); });
+            NovoPersonagemCommand = new Command(async () => { await ExibirCadastroPersonagem(); });
+            RemoverPersonagemCommand = new Command<Personagem>(async (Personagem p) => { await RemoverPersonagem(p); });
         }
+
+      
 
         // Proximos elementos da classe aqui
 
@@ -55,10 +59,46 @@ namespace AppRpgEtec.ViewModels.Personagens
             catch (Exception ex)
             {
                 await Application.Current.MainPage
-                    .DisplayAlert("Ops", ex.Message, "Detalhes" + ex.InnerException, "Ok");
+                    .DisplayAlert("Ops", ex.Message, "Detalhes:" + ex.InnerException, "Ok");
 
             }
         }
-        
+
+        private Personagem personagemSelecionado;
+        public Personagem PersonagemSelecionado
+        {
+            get { return PersonagemSelecionado1; }
+            set 
+            {
+                if(value != null)
+                {
+                    PersonagemSelecionado1 = value;
+                    Shell.Current.GoToAsync($"cadPersonagemView?pId={PersonagemSelecionado1.Id}");
+                }
+            }
+        }
+
+        public Personagem PersonagemSelecionado1 { get => personagemSelecionado; set => personagemSelecionado = value; }
+
+        public async Task RemoverPersonagem(Personagem p)
+        {
+            try
+            {
+                if(await Application.Current.MainPage.DisplayAlert("Confirmação", $"Confirmação a remoção de {p.Nome}?","Sim", "Não"))
+                {
+                    await pService.DeletePersonagemAsync(p.Id);
+
+                    await Application.Current.MainPage.DisplayAlert("Mensagem", "Personagem removido com sucesso!", "Ok");
+
+                    _ = ObterPersonagens();
+                }
+            }
+            catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Ops", ex.Message + " Detalhes: " + ex.InnerException, "Ok");
+            }
+        }
+       
+   
     }
 }
