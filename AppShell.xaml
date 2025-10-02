@@ -6,15 +6,55 @@
     xmlns:ViewsArmas ="clr-namespace:AppRpgEtec.Views.Armas"
     xmlns:local="clr-namespace:AppRpgEtec"
     xmlns:viewsPersonagens = "clr-namespace:AppRpgEtec.Views.Personagens"
+    xmlns:viewsUsuarios ="clr-namespace:AppRpgEtec.Views.Usuarios"
+    xmlna:viewsDisputas ="clr-namespace:AppRpgEtec.Views.Disputas"
     Title="AppRpgEtec">
 
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{OnPlatform Android=130, iOS=200}"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <FlexLayout Grid.Row="0" Direction="Row" AlignItems="Center" >
+                    <Frame Padding="0" CornerRadius="40"
+                        HeightRequest="80" WidthRequest="80" >
+                        <Image Source="dotnet_bot.png"/> <!--- Adicionar imagem correspondente  -->
+                    </Frame>
+                    <VerticalStackLayout Padding="10,0,0,0" Spacing="0">
+                        <Label Text="App RPG Etec" FontAttributes="Bold" FontSize="Medium" />
+                        <Label Text="Disciplina PAM-II"/>
+                    </VerticalStackLayout>
+                </FlexLayout>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
     <ShellContent
-        Title="Home"
+        Title="Home" Icon="home.svg"
         ContentTemplate="{DataTemplate viewsPersonagens:ListagemView}"
         Route="MainPage" />
 
     <ShellContent 
         Title="Armas" Icon="MenuArmas.png"
-        ContentTemplate="{DataTemplate ViewsArmas:CadastroArmaView}"/>
-    
+        ContentTemplate="{DataTemplate ViewsArmas:ListagemView}"
+        Route="Armas"
+        />
+
+    <ShellContent 
+        Title="Usuário" Icon="menuusuario.svg"
+        ContentTemplate="{DataTemplate ViewsUsuarios:ListagemView}"
+        />
+    <ShellContent 
+        Title="Personagens" Icon="menupersonagens.svg"
+        ContentTemplate="{DataTemplate viewsPersonagens:ListagemView}"
+        />
+
+    <ShellContent 
+        Title="Disputas" Icon="menudisputas.svg"
+        ContentTemplate="{DataTemplate ViewsDisputas:ListagemView}"
+        />
+
 </Shell>

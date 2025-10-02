@@ -15,6 +15,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
     {
         public UsuarioViewModel()
         {
+            //
             uServices = new UsuarioService();
             //chama os metodo de baixo(Horganização).
             InicializarCommands();
@@ -84,6 +85,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     Preferences.Set("UsuarioToken", uAutenticado.Token);
 
                     await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "Ok");
+
                     Application.Current.MainPage = new AppShell();
                     // Alteração para que view inicial possa ser a de listagem.
                 }
