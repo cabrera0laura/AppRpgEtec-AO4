@@ -8,6 +8,10 @@ namespace AppRpgEtec
         public AppShell()
         {
             InitializeComponent();
+
+            string login = Preferences.Get("UsuarioUsername", string.Empty);
+            lblLogin.Text = login;
+
             Routing.RegisterRoute("cadArmaView", typeof(CadastroArmaView));
         }
     }
