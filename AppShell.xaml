@@ -48,8 +48,7 @@
         ContentTemplate="{DataTemplate viewsPersonagens:ListagemView}"
         />
 
-    
-
+   
     <ShellContent 
          Title="Armas" Icon="MenuArmas.png"
          ContentTemplate="{DataTemplate ViewsArmas:ListagemView}"
