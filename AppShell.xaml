@@ -41,7 +41,7 @@
 
     <ShellContent 
         Title="Usuário" Icon="menuusuario.svg"
-        ContentTemplate="{DataTemplate viewsUsuarios:CadastroView}"
+        ContentTemplate="{DataTemplate viewsUsuarios:LocalizacaoView}"
         />
     <ShellContent 
         Title="Personagens" Icon="menupersonagens.svg"
