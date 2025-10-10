@@ -3,7 +3,7 @@
 	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:supportsRtl="true">
 
 		<meta-data android:name="com.google.android.geo.API_KEY"
-				   android:value=""> 
+				   android:value="AIzaSyDpp-FmqsgSqz3tMkSgnsTA0617H6kZdmw"> 
 			
 		</meta-data>
 	</application>
