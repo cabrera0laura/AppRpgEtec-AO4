@@ -4,11 +4,18 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ViewsArmas ="clr-namespace:AppRpgEtec.Views.Armas"
-    xmlns:local="clr-namespace:AppRpgEtec"
     xmlns:viewsPersonagens = "clr-namespace:AppRpgEtec.Views.Personagens"
     xmlns:viewsUsuarios ="clr-namespace:AppRpgEtec.Views.Usuarios"
-    Title="AppRpgEtec">
+    Title="AppRpgEtec"
+    xmlns:conv="clr-namespace:AppRpgEtec.Converters"
+    xmlns:local="clr-namespace:AppRpgEtec">
 
+    <Shell.Resources>
+        <ResourceDictionary>
+            <conv:ByteArrayToImageSourceConverter x:Key="ByteArrayToImage"/>
+        </ResourceDictionary>
+    </Shell.Resources>
+    
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <Grid>
@@ -20,7 +27,7 @@
                 <FlexLayout Grid.Row="0" Direction="Row" AlignItems="Center" >
                     <Frame Padding="0" CornerRadius="40"
                         HeightRequest="80" WidthRequest="80" >
-                        <Image Source="dotnet_bot.png"/> <!--- Adicionar imagem correspondente  -->
+                        <Image Source="{Binding Foto, Converter={StaticResource ByteArrayToImage}}"/> <!--- Adicionar imagem correspondente  -->
                     </Frame>
                     <VerticalStackLayout Padding="10,0,0,0" Spacing="0">
                         <Label Text="App RPG Etec" FontAttributes="Bold" FontSize="Medium" />
