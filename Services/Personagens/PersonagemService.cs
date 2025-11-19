@@ -22,6 +22,7 @@ namespace AppRpgEtec.Services.Personagens
         }
 
         // Proximos metodos aqui
+        #region Metodos
         public async Task<int> PostPersonagemAsync(Personagem p)
         {
             return await _request.PostReturnIntAsync(apiUrlBase, p, _token);
@@ -57,6 +58,18 @@ namespace AppRpgEtec.Services.Personagens
             return result;
         }
 
+        public async Task<ObservableCollection<Personagem>> GetByNomeAproximadoAsync(string busca)
+        {
+            string urlComplementar = $"/GetByNomeAproximado/{busca}";
+
+            ObservableCollection<Models.Personagem> listarPersonagens = await 
+                _request.GetAsync<ObservableCollection<Models.Personagem>>(apiUrlBase + urlComplementar, _token);
+
+            return listarPersonagens;
+        }
+
+
+        #endregion
 
     }
 }
