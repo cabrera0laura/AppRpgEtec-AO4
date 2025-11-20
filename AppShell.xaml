@@ -6,6 +6,7 @@
     xmlns:viewsArmas ="clr-namespace:AppRpgEtec.Views.Armas"
     xmlns:viewsPersonagens = "clr-namespace:AppRpgEtec.Views.Personagens"
     xmlns:viewsUsuarios ="clr-namespace:AppRpgEtec.Views.Usuarios"
+    xmlns:viewsDisputas ="clr-namespace:AppRpgEtec.Views.Disputas"
     Title="AppRpgEtec"
     xmlns:conv="clr-namespace:AppRpgEtec.Converters"
     xmlns:local="clr-namespace:AppRpgEtec">
@@ -59,6 +60,12 @@
     <ShellContent 
          Title="Armas" Icon="MenuArmas.png"
          ContentTemplate="{DataTemplate viewsArmas:CadastroArmaView}"
+         Route="Armas"
+         />
+
+    <ShellContent 
+         Title="Disputas" Icon="MenuDisputas.png"
+         ContentTemplate="{DataTemplate viewsDisputas:ListagemView}"
          Route="Armas"
          />
 
