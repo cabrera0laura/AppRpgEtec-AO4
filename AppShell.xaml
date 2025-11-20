@@ -58,7 +58,7 @@
    
     <ShellContent 
          Title="Armas" Icon="MenuArmas.png"
-         ContentTemplate="{DataTemplate ViewsArmas:ListagemView}"
+         ContentTemplate="{DataTemplate viewsArmas:CadastroArmaView}"
          Route="Armas"
          />
 

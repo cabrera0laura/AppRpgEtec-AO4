@@ -94,7 +94,19 @@ namespace AppRpgEtec.ViewModels.Disputas
         {
             get => Oponente.Nome;
         }
-        public Personagem PersonagemSelecionado { get => personagemSelecionado; set => personagemSelecionado = value; }
+        public Personagem PersonagemSelecionado 
+        {
+            set
+            {
+                if (value != null)
+                {
+                    personagemSelecionado = value;
+                    SelecionarPersonagem(personagemSelecionado);
+                    OnPropertyChanged();
+                    PersonagensEncontrados.Clear();
+                }
+            }
+        }
 
 
         #endregion

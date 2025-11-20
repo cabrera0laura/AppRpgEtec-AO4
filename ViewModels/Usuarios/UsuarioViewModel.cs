@@ -90,7 +90,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     Preferences.Set("UsuarioToken", uAutenticado.Token);
 
                     // Início da coleta de Geolocalização atual para Atualizar na API
-                    _isCheckingLocation = true;
+                    /*_isCheckingLocation = true;
                     _cancelTokenSource = new CancellationTokenSource();
                     GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
 
@@ -102,7 +102,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     uLoc.Longitude = location.Longitude;
 
                     UsuarioService uServiceLoc = new UsuarioService(uAutenticado.Token);
-                    await uServiceLoc.PutAtualizarLocalizacaoAsync(uLoc);
+                    await uServiceLoc.PutAtualizarLocalizacaoAsync(uLoc);*/
                     // Fim da coleta de Geolocalização atual para Atualização na API
 
                     await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "Ok");
