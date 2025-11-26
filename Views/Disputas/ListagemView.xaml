@@ -7,6 +7,10 @@
                 <SearchBar x:Name="searchBar" HeightRequest="25" Placeholder="Digite o nome do Personagem..."
         TextColor="Black" SearchCommand="{Binding PesquisarPersonagensCommand}"
         SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}"/>
+
+        <Entry Placeholder="Digite o nome do personagem..." Text="{Binding textoBuscaDigitado}">
+        </Entry>
+        
                 <ListView x:Name="lvPersonagens" HasUnevenRows="True" ItemsSource="{Binding
         PersonagensEncontrados}"
         SelectedItem="{Binding PersonagemSelecionado}"

@@ -68,6 +68,16 @@ namespace AppRpgEtec.Services.Personagens
             return listarPersonagens;
         }
 
+        // Configuração para restaurar os pontos de vida dos personagens e os dados da disputas
+
+        public async Task<int> PutRestaurarPontosAsync(Personagem p)
+        {
+            string urlComplementar = "/RestaurarPontosVida";
+            var result = await _request.PutAsync(apiUrlBase + urlComplementar, p, _token);
+            return result;
+        }
+        public async Task<int> PutZerarRankingAsync(Personagem p)
+
 
         #endregion
 

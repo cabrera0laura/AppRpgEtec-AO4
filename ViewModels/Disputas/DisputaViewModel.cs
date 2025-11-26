@@ -108,6 +108,26 @@ namespace AppRpgEtec.ViewModels.Disputas
             }
         }
 
+        private string textoBuscaDigitado = string.Empty;
+        public string TextoBuscaDigitado
+        {
+            get { return textoBuscaDigitado; }
+            set 
+            {
+                // Verificar se não é nulo, sé não é vazio e se o tamanho do texto é maior que zero.
+                if((value !=null && !string.IsNullOrEmpty(value) && value.Length >0))
+                {
+                    textoBuscaDigitado = value;
+                    _ = PesquisarPersonagens(textoBuscaDigitado);
+                }
+                else
+                {
+                    // Limpa o list view que exibe o resultado da pesquisa
+                    PersonagensEncontrados.Clear();
+                }
+            }
+        }
+
 
         #endregion
     }
