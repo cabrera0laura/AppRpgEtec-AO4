@@ -17,6 +17,7 @@ namespace AppRpgEtec.ViewModels.Personagens
         public ICommand NovoPersonagemCommand { get; }
         public ICommand RemoverPersonagemCommand { get; set; }
         //public Personagem Personagem { get => personagem; set => personagem = value; }
+        public ICommand ZerarRankingRestaurarVidasGeralCommand { get; set; }
 
         // construtor 
         public ListagemPersonagemViewModel()
@@ -29,9 +30,9 @@ namespace AppRpgEtec.ViewModels.Personagens
 
             NovoPersonagemCommand = new Command(async () => { await ExibirCadastroPersonagem(); });
             RemoverPersonagemCommand = new Command<Personagem>(async (Personagem p) => { await RemoverPersonagem(p); });
+            ZerarRankingRestaurarVidasGeralCommand = new Command(async () => { await ZerarRankingResturarVidasGeral(); });
         }
 
-      
 
         // Proximos elementos da classe aqui
 
@@ -67,19 +68,17 @@ namespace AppRpgEtec.ViewModels.Personagens
         private Personagem personagemSelecionado;
         public Personagem PersonagemSelecionado
         {
-            get { return PersonagemSelecionado1; }
+            get { return personagemSelecionado; }
             set 
             {
                 if(value != null)
                 {
-                    PersonagemSelecionado1 = value;
+                    personagemSelecionado = value;
                     
                     _ = ExibirOpcoesAsync(personagemSelecionado);
                 }
             }
         }
-
-        public Personagem PersonagemSelecionado1 { get => personagemSelecionado; set => personagemSelecionado = value; }
 
         public async Task RemoverPersonagem(Personagem p)
         {
@@ -170,12 +169,22 @@ namespace AppRpgEtec.ViewModels.Personagens
                 personagemSelecionado = null;
                 string result = string.Empty;
 
-                result = await Application.Current.MainPage
+                if(personagem.PontosVida > 0 )
+                {
+                    result = await Application.Current.MainPage
                     .DisplayActionSheet("Opções para o personagem " + personagem.Nome,
                                         "Cancelar", "Editar Personagem", "Restaurar Pontos de vida ",
                                         "Zerar Ranking do Personagem", "Remover Personagem");
+                }
+                else
+                {
+                    result = await Application.Current.MainPage
+                        .DisplayActionSheet("Opções para pesonagem" + personagem.Nome, "Cancelar", "Restaurar Pontos de vida");
+                }
+
                 if (result != null)
                     ProcessarOpcaoRespondidaAsync(personagem, result);
+
             }
             catch (Exception ex)
             {
