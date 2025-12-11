@@ -13,6 +13,8 @@ namespace AppRpgEtec
             lblLogin.Text = login;
 
             Routing.RegisterRoute("cadArmaView", typeof(CadastroArmaView));
+
+            Routing.RegisterRoute("cadPersonagemView", typeof(CadastroPersonagemView));
         }
     }
 }

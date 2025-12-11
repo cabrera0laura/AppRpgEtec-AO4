@@ -47,7 +47,7 @@ namespace AppRpgEtec.ViewModels.Personagens
             {
                 // Captara o erro para exibir em tela 
                 await Application.Current.MainPage
-                    .DisplayAlert("Ops", ex.Message, "Detalhes" + ex.InnerException, "Ok");
+                    .DisplayAlert("Ops", ex.Message+ "Detalhes" + ex.InnerException, "Ok");
             }
         }
 
@@ -173,13 +173,13 @@ namespace AppRpgEtec.ViewModels.Personagens
                 {
                     result = await Application.Current.MainPage
                     .DisplayActionSheet("Opções para o personagem " + personagem.Nome,
-                                        "Cancelar", "Editar Personagem", "Restaurar Pontos de vida ",
+                                        "Cancelar", "Editar Personagem", "Restaurar Pontos de Vida",
                                         "Zerar Ranking do Personagem", "Remover Personagem");
                 }
                 else
                 {
                     result = await Application.Current.MainPage
-                        .DisplayActionSheet("Opções para pesonagem" + personagem.Nome, "Cancelar", "Restaurar Pontos de vida");
+                        .DisplayActionSheet("Opções para personagem" + personagem.Nome, "Cancelar", "Restaurar Pontos de Vida");
                 }
 
                 if (result != null)

@@ -60,6 +60,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Services\NewFolder1\**" />
+	  <AndroidResource Remove="Services\NewFolder2\**" />
+	  <Compile Remove="Services\NewFolder1\**" />
+	  <Compile Remove="Services\NewFolder2\**" />
+	  <EmbeddedResource Remove="Services\NewFolder1\**" />
+	  <EmbeddedResource Remove="Services\NewFolder2\**" />
+	  <MauiCss Remove="Services\NewFolder1\**" />
+	  <MauiCss Remove="Services\NewFolder2\**" />
+	  <MauiXaml Remove="Services\NewFolder1\**" />
+	  <MauiXaml Remove="Services\NewFolder2\**" />
+	  <None Remove="Services\NewFolder1\**" />
+	  <None Remove="Services\NewFolder2\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Remove="ViewModels\Armas\IObservableCollection.cs" />
 	  <Compile Remove="ViewModels\Armas\ListagemArma.cs" />
 	</ItemGroup>

@@ -27,8 +27,8 @@ namespace AppRpgEtec.ViewModels.Personagens
             pService = new PersonagemService(token);
             _ = ObterClasses();
 
-            SalvarCommand = new Command(async () => { await SalvarPersonagem(); });
-            CancelarCommand = new Command(async => CancelarCadastro());
+            SalvarCommand = new Command(async () => { await SalvarPersonagem(); },() => ValidarCampos() );
+            CancelarCommand = new Command(async () => CancelarCadastro());
         }
 
         private ObservableCollection<TipoClasse> listaTiposClasse;
@@ -39,6 +39,7 @@ namespace AppRpgEtec.ViewModels.Personagens
             {
                 listaTiposClasse = value;
                 OnPropertyChanged();
+                ((Command)SalvarCommand).ChangeCanExecute();
             }
 
         }
@@ -52,8 +53,18 @@ namespace AppRpgEtec.ViewModels.Personagens
                 {
                     tipoClasseSelecionado = value;
                     OnPropertyChanged();
+                    ((Command)SalvarCommand).ChangeCanExecute();
                 }
             } 
+        }
+            
+        //Propriedade que retorna somente true | false (por ter so GET)
+        public bool CadastroHabilitado
+        {
+            get
+            {
+                return (PontosVida > 0);
+            }
         }
 
         private async void CancelarCadastro()
@@ -65,7 +76,7 @@ namespace AppRpgEtec.ViewModels.Personagens
         {
            try
             {
-                Personagem p = await pService.GetPersonagemAsync(int.Parse(PersonagemSelecionadoId1));
+                Personagem p = await pService.GetPersonagemAsync(int.Parse(personagemSelecionadoId));
 
                 this.Nome = p.Nome;
                 this.PontosVida = p.PontosVida;
@@ -129,6 +140,7 @@ namespace AppRpgEtec.ViewModels.Personagens
             { 
                 nome = value;
                 OnPropertyChanged();
+                ((Command)SalvarCommand).ChangeCanExecute();
             }
         }
         public int PontosVida 
@@ -138,6 +150,8 @@ namespace AppRpgEtec.ViewModels.Personagens
             { 
                 pontosVida = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(CadastroHabilitado));
+                ((Command)SalvarCommand).ChangeCanExecute();
             }
         }
         public int Forca 
@@ -147,6 +161,7 @@ namespace AppRpgEtec.ViewModels.Personagens
             { 
                 forca = value; 
                 OnPropertyChanged();
+                ((Command)SalvarCommand).ChangeCanExecute();
             }
         }
         public int Defesa 
@@ -155,6 +170,7 @@ namespace AppRpgEtec.ViewModels.Personagens
             { 
                 defesa = value; 
                 OnPropertyChanged();
+                ((Command)SalvarCommand).ChangeCanExecute();
             }
         }
         public int Inteligencia 
@@ -164,6 +180,7 @@ namespace AppRpgEtec.ViewModels.Personagens
             { 
                 inteligencia = value; 
                 OnPropertyChanged();
+                ((Command)SalvarCommand).ChangeCanExecute();
             } 
         }
         public int Disputas 
@@ -195,7 +212,7 @@ namespace AppRpgEtec.ViewModels.Personagens
 
         //public string PersonagemSelecionado { get => PersonagemSelecionado1; set => PersonagemSelecionado1 = value; }
        // public string PersonagemSelecionado1 { get => personagemSelecionado; set => personagemSelecionado = value; }
-        public string PersonagemSelecionadoId1 { get => personagemSelecionadoId; set => personagemSelecionadoId = value; }
+        //public string PersonagemSelecionadoId1 { get => personagemSelecionadoId; set => personagemSelecionadoId = value; }
         #endregion
 
         public async Task ObterClasses()
@@ -245,6 +262,14 @@ namespace AppRpgEtec.ViewModels.Personagens
                 await Application.Current.MainPage
                     .DisplayAlert("Ops", ex.Message + "Detalhes" + ex.InnerException, "Ok");
             }
+        }
+
+        public bool ValidarCampos()
+        {
+            return !string.IsNullOrEmpty(Nome)
+                && CadastroHabilitado
+                && Forca != 0
+                && Defesa != 0;
         }
 
     }
